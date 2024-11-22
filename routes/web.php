@@ -7,13 +7,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/login',[UserController::class,'login'])->name('login');
-Route::get('/register',[UserController::class,'register'])->name('register');
+Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::post('/loginsubmit', [UserController::class, 'loginsubmit'])->name('loginsubmit');
+Route::get('/register', [UserController::class, 'register'])->name('register');
+Route::post('/registersubmit', [UserController::class, 'registersubmit'])->name('registersubmit');
 
 
 
 
 
 // Admin-----------------------------------------------------------
-
-Route::get('/admin/dashboard',[AdminController::class,'admin'])->name('admin');
+Route::group(['middleware' => 'admin'], function () {
+    
+    Route::get('/admin/dashboard', [AdminController::class, 'admin'])->name('admin');
+    Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
+});

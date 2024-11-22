@@ -13,15 +13,17 @@
             <a href=""><img src="/img/logo.webp" alt=""></a>
           </h2>
       <div class="login">
+        @include('layouts._message')
         <h2>login to get access</h2>
-        <form action="">
+        <form action="{{route('loginsubmit')}}" method="POST" >
+        @csrf
           <div class="form-con">
             <label for="">Email</label>
-            <input type="text" name="email" />
+            <input type="text" name="email" required/>
           </div>
           <div class="form-con">
             <label for="">password</label>
-            <input type="text" name="password" />
+            <input type="password" name="password" required/>
           </div>
           <div class="form-con">
             <input type="submit" name="login" value="login"  class="submitbutton"/>

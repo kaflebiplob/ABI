@@ -15,30 +15,31 @@
         </h2>
         <div class="login">
             <h2>Registration</h2>
-            <form action="">
+            <form action="{{route('registersubmit')}}" method="POST">
+            @csrf
                 <div class="form-con">
                     <label for="">username</label>
-                    <input type="text" name="username" />
+                    <input type="text" name="name" required />
                 </div>
 
                 <div class="form-con">
                     <label for="">Email</label>
-                    <input type="text" name="email" />
+                    <input type="text" name="email" required/>
                 </div>
                 <div class="form-con">
                     <label for="">Phone</label>
-                    <input type="text" name="phone" />
+                    <input type="text" name="phone" required/>
                 </div>
                 <div class="form-con">
                     <label for="">password</label>
-                    <input type="text" name="password" />
+                    <input type="password" name="password" required/>
                 </div>
                 <div class="form-con">
                     <label for="">address</label>
                     <input type="text" name="address" />
                 </div>
                 <div class="form-con">
-                    <input type="submit" name="login" value="login" class="submitbutton" />
+                    <input type="submit" name="register" value="register" class="submitbutton" />
                 </div>
             </form>
             <p>Already have account? <span><a href="{{route('login')}}">login</a></span></p>

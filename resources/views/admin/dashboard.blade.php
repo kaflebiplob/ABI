@@ -13,7 +13,7 @@
                     <h2 class="adminbutton">Category List</h2>
                 </div>
                 <div class="addnewheader">
-                    <a href="{{url('/admin/category')}}">Add New Category</a>
+                    <a href="{{url('category')}}">Add New Category</a>
                 </div>
             </div>
 
@@ -44,7 +44,7 @@
 
     <form action="{{ route('logout') }}" method="POST">
         @csrf
-        <button type="submit" class="logoutbut">Logout</button>
+        <button type="submit" class="logoutbutton">Logout</button>
 
     </form>
 

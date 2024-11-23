@@ -8,6 +8,7 @@
       </div>
       <ul class="sidebarlist">
         <li><a href="/pages/dashboard.html">Dashboard</a></li>
+        <li><a href="{{route('category')}}">category</a></li>
         <li>
           <select>
             <option value="">Products</option>
@@ -17,7 +18,6 @@
           </select>
         </li>
         <li><a href="#">Users</a></li>
-        <li><a href="#">Settings</a></li>
         <li><a href="#">Tables</a></li>
       </ul>
     </nav>

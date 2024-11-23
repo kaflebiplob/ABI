@@ -8,12 +8,13 @@
         <div class="tablelist">
 
             <div class="listheader">
-                <div class="adminheader">
+                <div class="adminheader"
+                @include('layouts._message')>
 
                     <h2 class="adminbutton">Category List</h2>
                 </div>
                 <div class="addnewheader">
-                    <a href="">Add New Category</a>
+                    <a href="{{route('addcategory')}}">Add New Category</a>
                 </div>
             </div>
 

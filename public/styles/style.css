@@ -207,16 +207,16 @@ th {
     background-color: #4caf50;
     width: 90%;
 }
-.adminbutton{
-  margin-bottom: 1rem;
+.adminbutton {
+    margin-bottom: 1rem;
 }
-.listheader{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.listheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.addnewheader{
-  background-color: #007bff;
+.addnewheader {
+    background-color: #007bff;
     color: #fff;
     font-size: 16px;
     border: none;
@@ -225,17 +225,17 @@ th {
     cursor: pointer;
     margin-bottom: 1rem;
 }
-.addnewheader a{
-  color: white;
- text-decoration: none;
+.addnewheader a {
+    color: white;
+    text-decoration: none;
 }
-  .logoutbutton{
-  background-color: #007bff;
-  color: #fff;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  margin-bottom: 1rem;
+.logoutbutton {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 1rem;
 }

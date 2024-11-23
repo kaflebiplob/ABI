@@ -22,5 +22,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/dashboard', [AdminController::class, 'admin'])->name('admin');
     Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
 
-    Route::get('/admin/category', [AdminController::class, 'category'])->name('category');
+    Route::get('category', [AdminController::class, 'category'])->name('category');
+    Route::get('addcategory', [AdminController::class, 'addcategory'])->name('addcategory');
+    Route::post('/addcategorysubmit', [AdminController::class, 'addcategorysubmit'])->name('addcategorysubmit');
 });

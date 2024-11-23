@@ -17,8 +17,8 @@
             <option value="">Users</option>
           </select>
         </li>
+        <li><a href="{{route('brands')}}">Brands</a></li>
         <li><a href="#">Users</a></li>
-        <li><a href="#">Tables</a></li>
       </ul>
     </nav>
   </div>

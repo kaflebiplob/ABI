@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brands;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,5 +75,67 @@ class AdminController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('category')->with('error', 'Error deleting category: ' . $e->getMessage());
         }
+    }
+    function brands()
+    {
+        $brands = Brands::with('creator')->get();
+        return view('admin.brands.brands', compact('brands'));
+    }
+    function addbrands()
+    {
+
+        return view('admin.brands.addbrands');
+    }
+    function addbrandssubmit(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:brands',
+            'status' => 'required'
+
+        ]);
+        $brands = new Brands();
+        $brands->name = $request->name;
+        $brands->slug = Str::slug($request->slug, '-');
+        $brands->created_by = Auth::id();
+        $brands->status = $request->status;
+        $brands->save();
+        return redirect()->route('brands')->with('success', 'Categories added succesfully');
+    }
+    function editbrands($id)
+    {
+        $brands = Brands::find($id);
+        return view('admin.brands.editbrands', compact('brands'));
+    }
+    function editbrandssubmit($id, Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:brands,slug,' . $id,
+            'status' => 'required'
+        ]);
+        $brands = Brands::find($id);
+        if (!$brands) {
+            return redirect()->route('brands')->with('error', 'Brand not found');
+        }
+        $brands->name = $request->name;
+        $brands->slug = Str::slug($request->slug, '-');
+        $brands->status = $request->status;
+        $brands->save();
+        return redirect()->route('brands')->with('Brands updated succesfully');
+    }
+    function deletebrands($id)
+    {
+        $brands = Brands::find($id);
+        try {
+            $brands->delete();
+            return redirect()->route('brands')->with('success', 'Brands deleted succesfully');
+        } catch (\Exception $e) {
+            return redirect()->route('brands')->with('error', 'Error deleting brands: ' . $e->getMessage());
+        }
+    }
+    function products()
+    {
+        return view('admin.product.product');
     }
 }

@@ -7,7 +7,7 @@
         <span>Ecommerce</span>
       </div>
       <ul class="sidebarlist">
-        <li><a href="/pages/dashboard.html">Dashboard</a></li>
+        <li><a href="{{route('admin')}}">Dashboard</a></li>
         <li><a href="{{route('category')}}">category</a></li>
         <li>
           <select>

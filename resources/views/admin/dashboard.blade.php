@@ -10,10 +10,10 @@
             <div class="listheader">
                 <div class="adminheader">
 
-                    <h2 class="adminbutton">Category List</h2>
+                    <h2 class="adminbutton">Dashboard</h2>
                 </div>
                 <div class="addnewheader">
-                    <a href="{{url('category')}}">Add New Category</a>
+                    <a href="{{url('category')}}">Add dashboard</a>
                 </div>
             </div>
 

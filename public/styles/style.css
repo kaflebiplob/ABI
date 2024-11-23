@@ -157,10 +157,15 @@ table {
     border-collapse: collapse;
     margin-bottom: 20px;
 }
+tr,
+td {
+    margin: 3rem 0;
+    text-align: center;
+}
 th,
 td {
-    text-align: left;
-    padding: 8px;
+    text-align: center;
+    padding: 20px 0;
     border: 1px solid #ddd;
 }
 th {
@@ -172,7 +177,7 @@ th {
 .progress-container {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 8px;   
 }
 .progress-bar {
     flex-grow: 1;
@@ -239,3 +244,4 @@ th {
     cursor: pointer;
     margin-bottom: 1rem;
 }
+

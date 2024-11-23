@@ -25,4 +25,11 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('category', [AdminController::class, 'category'])->name('category');
     Route::get('addcategory', [AdminController::class, 'addcategory'])->name('addcategory');
     Route::post('/addcategorysubmit', [AdminController::class, 'addcategorysubmit'])->name('addcategorysubmit');
+    Route::get('/edit_category/{id}', [AdminController::class, 'edit_category'])->name('edit_category');
+    Route::post('/editcategory/{id}', [AdminController::class, 'editcategory'])->name('editcategory');
+    Route::post('/deletecategory/{id}', [AdminController::class, 'deletecategory'])->name('deletecategory');
+
+
+
+    Route::get('/products',[AdminController::class,'products'])->name('products');
 });

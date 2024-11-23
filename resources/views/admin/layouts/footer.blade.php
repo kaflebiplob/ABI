@@ -1,3 +1,3 @@
 <footer class="footersection">
-    All right reserved &copy; ecommerce 2024
+    All right reserved &copy; {{date('Y')}} ecommerce
 </footer>

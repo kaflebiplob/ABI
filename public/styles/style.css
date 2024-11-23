@@ -1,148 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: "Poppins", sans-serif;
-  background-color: #f4f4f4;
-  height: 100%;
+    font-family: "Poppins", sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f4f4;
 }
+
 .adminsection {
-  height: 100vh;
-  display: flex;
-  position: relative;
-  overflow: hidden;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
 }
+
 .hamburger {
-  display: none;
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background-color: #333;
-  color: #ecf0f1;
-  border: none;
-  font-size: 24px;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #333;
+    color: #ecf0f1;
+    border: none;
+    font-size: 24px;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
 }
+
 .hamburger:hover {
-  background-color: #34495e;
+    background-color: #34495e;
 }
 
 .adminpanel {
-  position: fixed;
-  height: 100%;
-  width: 250px;
-  background-color: #333;
-  color: #fff;
-  box-sizing: border-box;
-  padding: 15px;
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    flex-shrink: 0;
+    height: 100%;
+    overflow-y: auto;
 }
+.sidebar {
+    height: 100%;
+}
+
 .sidebar h1 {
-  margin-bottom: 2rem;
-  text-align: center;
-  font-size: 22px;
-  border-bottom: 1px solid #555;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 22px;
+    border-bottom: 1px solid #555;
 }
+
 .sidebar .logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
 }
+
 .logo img {
-  width: 50px;
+    width: 50px;
 }
+
 .logo span {
-  text-align: center;
+    text-align: center;
+    font-weight: bold;
 }
 
 .sidebarlist {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
 }
+
 nav {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
+
 .sidebarlist li {
-  list-style: none;
-  margin: 15px 0;
-  padding: 0;
+    list-style: none;
+    margin: 15px 0;
 }
+
 .sidebarlist li a {
-  color: #fff;
-  text-decoration: none;
-  padding: 10px;
-  display: block;
-  border-radius: 5px;
-  transition: background 0.5s ease;
-  font-size: 20px;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    border-radius: 5px;
+    transition: background 0.5s ease;
+    font-size: 20px;
 }
+
 .sidebarlist li select {
-  background-color: #333;
-  width: 100%;
-  border: none;
-  color: #fff;
-  font-size: 20px;
-  text-decoration: none;
-  padding: 10px;
-  display: block;
-  border-radius: 5px;
-  transition: background 0.5s ease;
+    background-color: #333;
+    width: 100%;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    padding: 10px;
+    display: block;
+    border-radius: 5px;
 }
+
 .sidebarlist li a:hover {
-  background: #555;
-  font-weight: bold;
+    background: #555;
+    font-weight: bold;
 }
+
 .maincontent {
-  flex: 1;
-  padding: 30px;
-  background-color: #f4f4f4;
-  margin-left: 250px;
-  transition: margin-left 0.3s ease;
+    flex: 1;
+    background-color: #f4f4f4;
+    padding: 20px;
+    overflow-y: auto;
+    height: 100%;
 }
+
 .footersection {
- 
-  color: black;
-  text-align: center;
-  padding: 15px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%; 
-  z-index: 1001;
+    text-align: center;
+    padding: 15px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 @media (max-width: 756px) {
-  .adminsection {
-    gap: 50px;
-  }
-  .maincontent {
-    margin-left: 50px;
-  }
-  .sidebar.active + .maincontent {
-    margin-left: 250px;
-  }
-  .adminpanel {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    z-index: 999;
-    transform: translateX(-100%);
-  }
-  .adminpanel.active {
-    transform: translateX(0);
-  }
-  .hamburger {
+    .adminpanel {
+        position: fixed;
+        left: -100%;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+
+    .adminpanel.active {
+        left: 0;
+    }
+
+    .hamburger {
+        display: block;
+        z-index: 1001;
+    }
+}
+
+/* ----------------------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th,
+td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+th {
+    background-color: #f4f4f4;
+}
+.striped tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.progress-bar {
+    flex-grow: 1;
+    height: 8px;
+    background-color: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+.progress-bar span {
     display: block;
-  }
-  .sidebarlist li a,
-  select {
-    font-size: 20px;
-  }
+    height: 100%;
+    border-radius: 4px;
+    position: absolute;
+}
+.progress-label {
+    font-weight: bold;
+}
+.red {
+    background-color: #f44336;
+    width: 55%;
+}
+.yellow {
+    background-color: #ffeb3b;
+    width: 70%;
+}
+.blue {
+    background-color: #2196f3;
+    width: 30%;
+}
+.green {
+    background-color: #4caf50;
+    width: 90%;
+}
+.adminbutton{
+  margin-bottom: 1rem;
+}
+.listheader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.addnewheader{
+  background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+.addnewheader a{
+  color: white;
+ text-decoration: none;
+}
+  .logoutbutton{
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 1rem;
 }

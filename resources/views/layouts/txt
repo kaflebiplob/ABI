@@ -1,0 +1,5 @@
+ Route::get('/addcategory', [AdminController::class, 'addcategory'])->name('addcategory');
+    Route::post('/categorysubmit', [AdminController::class, 'categorysubmit'])->name('categroysubmit');
+    Route::get('/edit_category/{id}', [AdminController::class, 'editcategory'])->name('editcategory');
+    Route::post('/updatecategory/{id}', [AdminController::class, 'updatecategory'])->name('admincategory');
+    Route::get('/delete_category/{id}', [AdminController::class, 'deletecategory'])->name('deletecategory');

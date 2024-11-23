@@ -1,11 +1,11 @@
-const sidebar = document.getElementById("toggle-sidebar");
-const adminpanel = document.querySelector(".adminpanel");
+const toggleSidebar = document.querySelector("#toggle-sidebar");
+const adminPanel = document.querySelector(".adminpanel");
 
-sidebar.addEventListener("click", () => {
-  adminpanel.classList.toggle("active");
+toggleSidebar.addEventListener("click", () => {
+  adminPanel.classList.toggle("active");
   if (adminpanel.classList.contains("active")) {
-    sidebar.style.left = "-10px";
+    toggleSidebar.style.left = "-10px";
   } else {
-    sidebar.style.left = "15px";
+    toggleSidebar.style.left = "15px";
   }
 });

@@ -13,7 +13,7 @@
                     <h2 class="adminbutton">Category List</h2>
                 </div>
                 <div class="addnewheader">
-                    <a href="{{url('/admin/category')}}">Add New Category</a>
+                    <a href="">Add New Category</a>
                 </div>
             </div>
 

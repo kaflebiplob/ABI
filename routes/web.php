@@ -18,7 +18,9 @@ Route::post('/registersubmit', [UserController::class, 'registersubmit'])->name(
 
 // Admin-----------------------------------------------------------
 Route::group(['middleware' => 'admin'], function () {
-    
+
     Route::get('/admin/dashboard', [AdminController::class, 'admin'])->name('admin');
     Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
+
+    Route::get('/admin/category', [AdminController::class, 'category'])->name('category');
 });

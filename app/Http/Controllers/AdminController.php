@@ -138,4 +138,28 @@ class AdminController extends Controller
     {
         return view('admin.product.product');
     }
+    function addproduct()
+    {
+        $brands = Brands::all();
+        $categories = Category::all();
+        return view('admin.product.addproduct', compact('brands', 'categories'));
+    }
+    function addproductsubmit(Request $request)
+    {
+        dd($request->all());
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:products',
+            'sku' => 'required',
+            'old_price' => 'required',
+            'price' => 'required',
+            'short_description' => 'required',
+            'description' => 'required',
+            'additional_information' => 'required',
+            'shippring_returns' => 'required',
+            'status' => 'required',
+
+
+        ]);
+    }
 }

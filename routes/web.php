@@ -33,6 +33,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('/products', [AdminController::class, 'products'])->name('products');
     Route::get('/addproduct', [AdminController::class, 'addproduct'])->name('addproduct');
+    Route::post('/addproductsubmit',[AdminController::class,'addproductsubmit'])->name('addproductsubmit');
 
 
 

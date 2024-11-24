@@ -11,4 +11,7 @@ class Brands extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+    function product(){
+        return $this->hasMany(Products::class);
+    }
 }

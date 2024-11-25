@@ -10,7 +10,7 @@ class Products extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    function brands()
+    function brand()
     {
         return $this->belongsTo(Brands::class);
     }

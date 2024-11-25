@@ -31,9 +31,12 @@ Route::group(['middleware' => 'admin'], function () {
 
 
 
-    Route::get('/products', [AdminController::class, 'products'])->name('products');
+    Route::get('/product_list', [AdminController::class, 'products'])->name('product_list');
     Route::get('/addproduct', [AdminController::class, 'addproduct'])->name('addproduct');
-    Route::post('/addproductsubmit',[AdminController::class,'addproductsubmit'])->name('addproductsubmit');
+    Route::post('/addproductsubmit', [AdminController::class, 'addproductsubmit'])->name('addproductsubmit');
+    Route::get('/editproduct/{id}', [AdminController::class, 'editproduct'])->name('editproduct');
+    Route::post('/editproductsubmit/{id}', [AdminController::class, 'editproductsubmit'])->name('editproductsubmit');
+    Route::post('/deleteproduct/{id}', [AdminController::class, 'deleteproduct'])->name('deleteproduct');
 
 
 

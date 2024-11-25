@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <form action="{{route('addproductsubmit')}}" method="POST" class="form-container">
+            <form action="{{route('addproductsubmit')}}" method="POST" class="form-container" enctype="multipart/form-data" >
                 @csrf
                 
             
@@ -54,7 +54,10 @@
                     <label for="description">Description</label>
                     <textarea name="description" id="description" rows="5" placeholder="Enter detailed description"></textarea>
                 </div>
-                
+                <div class="form-group">
+                    <label for="old_price">Image</label>
+                    <input type="file" name="image" id="image" placeholder="" required />
+                </div>
                 <div class="form-group">
                     <label for="additional_information">Additional Information</label>
                     <textarea name="additional_information" id="additional_information" rows="5" placeholder="Enter additional information"></textarea>

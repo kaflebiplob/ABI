@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('SKU');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('brand_id');
-
+            $table->string('image');
             $table->decimal('old_price', 10, 2)->nullable();
             $table->decimal('price', 10, 2);
             $table->text('short_description');

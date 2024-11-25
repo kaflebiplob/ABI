@@ -41,11 +41,11 @@
                         <td>{{ $brand->creator ? $brand->creator->name : 'N/A' }}</td>
 
                         <td>
-                            <a href="{{route('editbrands',$brand->id)}}" style="background-color: brown; text-decoration:none;" class="logoutbutton">Edit</a> <br><br>
+                            <a href="{{route('editbrands',$brand->id)}}" class="edit-button">Edit</a> <br><br>
                             <form action="{{ route('deletebrands', $brand->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('POST')
-                                <button type="submit" style="background-color: red; text-decoration:none; padding:8px; border-radius:5px; border:none; color:white; cursor:pointer" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
+                                <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
                             </form>
                         </td>
                     </tr>

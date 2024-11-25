@@ -246,3 +246,68 @@ th {
     margin-bottom: 1rem;
 }
 
+.edit-button {
+    text-decoration: none;
+    background-color: #ffc107;
+    color: black;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* ---------------------------------------------pagination--------------------------- */
+.pagination-links {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* Style the pagination elements */
+.pagination-links .pagination {
+    display: inline-flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Style each pagination link */
+.pagination-links .pagination li {
+    margin: 0 5px;
+}
+
+/* Style the anchor tags for pagination links */
+.pagination-links .pagination li a {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #007bff;
+    font-size: 14px;
+}
+
+/* Change the color of pagination links on hover */
+.pagination-links .pagination li a:hover {
+    background-color: #f1f1f1;
+    color: #0056b3;
+}
+
+/* Style the active page */
+.pagination-links .pagination .active a {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* Style the disabled pagination items */
+.pagination-links .pagination .disabled a {
+    color: #ccc;
+    border-color: #ddd;
+    pointer-events: none;
+}

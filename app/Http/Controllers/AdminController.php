@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brands;
 use App\Models\Category;
+use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -136,7 +137,10 @@ class AdminController extends Controller
     }
     function products()
     {
-        return view('admin.product.product');
+        // $products = Products::paginate(1);
+        $products = Products::orderBy('created_at', 'desc')->paginate(50);
+
+        return view('admin.product.product', compact('products'));
     }
     function addproduct()
     {
@@ -146,7 +150,7 @@ class AdminController extends Controller
     }
     function addproductsubmit(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'slug' => 'required|unique:products',
@@ -155,11 +159,105 @@ class AdminController extends Controller
             'price' => 'required',
             'short_description' => 'required',
             'description' => 'required',
+            'image' => 'required',
             'additional_information' => 'required',
-            'shippring_returns' => 'required',
+            'shipping_returns' => 'required',
             'status' => 'required',
 
 
         ]);
+        $products = new Products();
+        $products->name = $request->name;
+        $products->slug = Str::slug($request->slug);
+        $products->SKU = $request->sku;
+        $products->old_price = $request->old_price;
+        $products->category_id = $request->category_id;
+        $products->brand_id = $request->brand_id;
+
+        $products->price = $request->price;
+        $products->short_description = $request->short_description;
+        $products->description = $request->description;
+        $products->additional_information = $request->additional_information;
+        $products->shipping_returns = $request->shipping_returns;
+        $products->status = $request->status;
+        $image = $request->image;
+        if ($image) {
+            $imagename = time() . '.' . $image->getClientOriginalExtension();
+            $request->image->move('products', $imagename);
+
+            $products->image = $imagename;
+        }
+        $products->save();
+        return redirect()->route('product_list')->with('success', 'Product added succesfully');
+    }
+    function editproduct($id)
+    {
+        $products = Products::find($id);
+        $brands = Brands::all();
+        $categories = Category::all();
+        return view('admin.product.editproduct', compact('products', 'brands', 'categories'));
+    }
+    function editproductsubmit($id, Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+
+
+        ]);
+
+        $products = Products::find($id);
+        if (!$products) {
+            return redirect()->route('product_list')->with('error', 'Product not found');
+        }
+        $products->name = $request->name;
+        $products->sku = $request->sku;
+        $products->price = $request->price;
+        $products->short_description = $request->short_description;
+        $products->description = $request->description;
+        $products->category_id = $request->category_id;
+        $products->brand_id = $request->brand_id;
+        $products->slug = $request->slug;
+        $products->old_price = $request->old_price;
+        $products->status = $request->status;
+        $image = $request->image;
+        // if ($image) {
+        //     $imagename = time() . '.' . $image->getClientOriginalExtension();
+        //     $request->image->move('products', $imagename);
+
+        //     $products->image = $imagename;
+        // }
+        if ($request->hasFile('image')) {
+            if ($products->image && file_exists(public_path('products/' . $products->image))) {
+                unlink(public_path('products/' . $products->image));
+            }
+            $image = $request->file('image');
+            $imagename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('products'), $imagename);
+            $products->image = $imagename;
+        }
+        $products->save();
+        return redirect()->route('product_list')->with('success', 'Product updated succesfully');
+    }
+
+    function deleteproduct($id)
+    {
+        $products = Products::find($id);
+        if (!$products) {
+            return redirect()->route('product_list')->with('error', 'Product not found.');
+        }
+        try {
+            if ($products->image) {
+                $imagename = public_path('products/' . $products->image);
+                if (file_exists($imagename)) {
+                    unlink($imagename);
+                }
+            }
+            $products->delete();
+            return redirect()->route('product_list')->with('success', 'Product deleted succesfully');
+        } catch (\Exception $e) {
+
+            return redirect()->route('product_list')->with('error', 'Error deleting products: ' . $e->getMessage());
+        }
     }
 }

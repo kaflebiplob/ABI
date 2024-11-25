@@ -38,11 +38,11 @@
                         <td>{{$category->slug}}</td>
                         <td>{{$category->status}}</td>
                         <td>
-                            <a href="{{route('edit_category',$category->id)}}" style="background-color: brown; text-decoration:none;" class="logoutbutton">Edit</a> <br><br>
+                            <a href="{{route('edit_category',$category->id)}}" class="edit-button">Edit</a> <br><br>
                             <form action="{{ route('deletecategory', $category->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('POST')
-                                <button type="submit" style="background-color: red; text-decoration:none; padding:8px; border-radius:5px; border:none; color:white; cursor:pointer"  onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
+                                <button type="submit"  class="delete-button" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
                             </form>
                         </td>
                     </tr>

@@ -9,7 +9,7 @@
       <ul class="sidebarlist">
         <li><a href="{{route('admin')}}">Dashboard</a></li>
         <li><a href="{{route('category')}}">Category</a></li>
-        <li><a href="{{route('products')}}">Products</a></li>
+        <li><a href="{{route('product_list')}}">Products</a></li>
         <li><a href="{{route('brands')}}">Brands</a></li>
         <li><a href="#">Users</a></li>
       </ul>

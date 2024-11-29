@@ -21,6 +21,24 @@
                     <li><a href="{{route('products')}}">Product</a></li>
                     <li><a href="">About s</a></li>
                     <li><a href="">Contact us</a></li>
+                    @if(Route::has('login'))
+                    @auth
+
+                    <li><a href="">Cart</a></li>
+                    <li><a href="">orders</a></li>
+                    <li>
+                        <form action="{{ route('userlogout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="logoutbutton">Logout</button>
+
+                        </form>
+                    </li>
+                    @else
+
+                    <li><a href="{{route('login')}}">Login</a></li>
+                    <li><a href="{{route('register')}}">signup</a></li>
+                    @endauth
+                    @endif
                 </ul>
             </div>
             <button id="toggle" class="hamburger">☰</button>
@@ -31,6 +49,7 @@
 
 
             <div class="main-content">
+                @include('layouts._message')
 
                 <div class="slider-content">
                     <div class="desc">
@@ -91,7 +110,7 @@
 
 
                     <div class="product-box">
-                        <a href=""><img src="products/{{$tyre->image}}" alt="" /> </a>
+                        <a href="{{route('productdetail',$tyre->id)}}"><img src="products/{{$tyre->image}}" alt="" /> </a>
                         <h3 style="margin: 1rem 0">{{$tyre->name}}</h3>
                         <p class="product-desc">
                             {{$tyre->short_description}}
@@ -116,12 +135,37 @@
 
 
                     <div class="product-box">
-                        <a href=""><img src="products/{{$battery->image}}" alt="" /> </a>
+                        <a href="{{route('productdetail',$battery->id)}}"><img src="products/{{$battery->image}}" alt="" /> </a>
                         <h3 style="margin: 1rem 0">{{$battery->name}}</h3>
                         <p class="product-desc">
                             {{$battery->short_description}}
                         </p>
                         <p class="product-desc">Total Stock: {{$battery->SKU}}</p>
+                        <a href="" class="buynow-product">buy now</a>
+                        <a href="" class="buynow-product">Add to cart</a>
+                    </div>
+                    @endforeach
+
+                </div>
+                <div class="see-all-products">
+                    <a href="{{route('products')}}" class="btn-see-all">See All Products</a>
+                </div>
+            </div>
+        </div>
+        <div class="shopsection">
+            <div class="tyres">
+                <h2 class="product-title" style="margin-top: 7rem">Lubricants</h2>
+                <div class="products-tyre">
+                    @foreach ($lubricants as $lubricant )
+
+
+                    <div class="product-box">
+                        <a href="{{route('productdetail',$lubricant->id)}}"><img src="products/{{$lubricant->image}}" alt="" /> </a>
+                        <h3 style="margin: 1rem 0">{{$lubricant->name}}</h3>
+                        <p class="product-desc">
+                            {{$lubricant->short_description}}
+                        </p>
+                        <p class="product-desc">Total Stock: {{$lubricant->SKU}}</p>
                         <a href="" class="buynow-product">buy now</a>
                         <a href="" class="buynow-product">Add to cart</a>
                     </div>

@@ -25,7 +25,7 @@ class UserController extends Controller
             if ($user->usertype === 'admin') {
                 return redirect()->route('admin')->with('success', 'Welcome back admin');
             } else {
-                return redirect()->route('login')->with("success','weleome back.");
+                return redirect()->route('index')->with("success','weleome back.");
             }
         }
 

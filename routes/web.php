@@ -6,16 +6,22 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/login', [UserController::class, 'login'])->name('login');
-Route::post('/loginsubmit', [UserController::class, 'loginsubmit'])->name('loginsubmit');
-Route::get('/register', [UserController::class, 'register'])->name('register');
-Route::post('/registersubmit', [UserController::class, 'registersubmit'])->name('registersubmit');
 
 
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/login', [UserController::class, 'login'])->name('login');
+    Route::post('/loginsubmit', [UserController::class, 'loginsubmit'])->name('loginsubmit');
+    Route::get('/register', [UserController::class, 'register'])->name('register');
+    Route::post('/registersubmit', [UserController::class, 'registersubmit'])->name('registersubmit');
+});
 // User------------------------------------------------------------
-Route::get('/',[HomeController::class,'index'])->name('index');
-Route::get('/shop',[HomeController::class,'products'])->name('products');
-Route::get('/product_detail/{id}',[HomeController::class,'productdetail'])->name('productdetail');
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/shop', [HomeController::class, 'products'])->name('products');
+Route::get('/productdetail/{id}', [HomeController::class, 'productdetail'])->name('productdetail');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/userlogout', [HomeController::class, 'userlogout'])->name('userlogout');
+});
 
 
 // Admin-----------------------------------------------------------
@@ -49,6 +55,5 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/editbrandssubmit/{id}', [AdminController::class, 'editbrandssubmit'])->name('editbrandssubmit');
     Route::post('/deletebrands/{id}', [AdminController::class, 'deletebrands'])->name('deletebrands');
 
-    Route::get('/userlist',[AdminController::class,'userlist'])->name('userlist');
-    
+    Route::get('/userlist', [AdminController::class, 'userlist'])->name('userlist');
 });

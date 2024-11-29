@@ -1,19 +1,21 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/loginsubmit', [UserController::class, 'loginsubmit'])->name('loginsubmit');
 Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/registersubmit', [UserController::class, 'registersubmit'])->name('registersubmit');
 
 
-
+// User------------------------------------------------------------
+Route::get('/',[HomeController::class,'index'])->name('index');
+Route::get('/shop',[HomeController::class,'products'])->name('products');
+Route::get('/product_detail/{id}',[HomeController::class,'productdetail'])->name('productdetail');
 
 
 // Admin-----------------------------------------------------------

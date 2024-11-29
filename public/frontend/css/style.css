@@ -1,0 +1,351 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+  font-family: "Poppins", sans-serif;
+}
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.logo {
+  display: flex;
+
+  align-items: center;
+}
+.logo span {
+  font-weight: bolder;
+}
+.logo img {
+  width: 100px;
+  height: 50px;
+}
+.links {
+  display: flex;
+}
+.links.active {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  width: 100%;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(-10px);
+  z-index: 1000;
+}
+.links li {
+  list-style: none;
+}
+.links li a {
+  text-decoration: none;
+  color: black;
+  margin: 0 1rem;
+  font-weight: 500;
+}
+.hamburger {
+  width: 50px;
+  height: 50px;
+  background: none;
+  border: none;
+  display: none;
+  font-weight: bold;
+}
+.mainsection {
+  margin: 3rem 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.main-content {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.slider-content {
+  min-width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 30px;
+}
+.desc {
+  max-width: 50%;
+}
+
+.desc-image img {
+  width: 100%;
+  height: auto;
+}
+
+.desc,
+.desc-image {
+  padding: 20px;
+}
+.desc a,
+p {
+  margin: 1rem 0;
+}
+
+.buynow {
+  text-decoration: none;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 2rem 0;
+}
+.buynow:hover {
+  background-color: #0056b3;
+}
+.buynow:active {
+  background-color: #004085;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+.see-all-products {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-see-all {
+  display: inline-block;
+  padding: 10px 20px;
+  color: black;
+}
+
+@media (max-width: 756px) {
+  .hamburger {
+    display: block;
+  }
+  .links {
+    display: none;
+    align-items: center;
+  }
+  .links li {
+    margin: 1rem 0;
+  }
+}
+
+/* -------------------------------------Product---------------------------------------------- */
+.shopsection {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.tyres {
+  text-align: center;
+  margin: 4rem 0;
+}
+.product-title {
+  margin: 2rem 0;
+}
+.products-tyre {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.product-box {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+.product-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.product-box img {
+  width: 200px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.product-desc {
+  font-size: 0.95em;
+  color: #555;
+  line-height: 1.5;
+}
+.buynow-product {
+  text-decoration: none;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 2rem 0;
+}
+
+/* -------------------------------------------------------Category-------------------------------------------------- */
+.category {
+  padding: 40px 20px;
+}
+.category-title {
+  text-align: center;
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 30px;
+}
+.categorylist {
+  display: flex;
+
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.categorylayout {
+  display: flex;
+  justify-content: space-around ;
+  align-items: center;
+  gap: 20px;
+}
+.category-box {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 150px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.category-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.category-box img {
+  width: 60px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.category-box h4 {
+  font-size: 1.2em;
+  color: #333;
+}
+.category-logo img {
+  width: 250px;
+  height: auto;
+}
+@media (max-width: 768px) {
+  .categorylayout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .category-logo img {
+    width: 150px;
+  }
+}
+/* -----------------------------------------------------------Footer------------------------------------------------- */
+
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 20px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-section h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #555;
+  padding-bottom: 5px;
+}
+
+.footer-section p, .footer-section ul, .footer-section div {
+  margin: 0;
+  line-height: 1.8;
+  font-size: 0.9em;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li i {
+  margin-right: 10px;
+  color: #ffa500;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #ffa500;
+}
+
+.footer-section .social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-section .social-icons a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.5em;
+  transition: color 0.3s;
+}
+
+.footer-section .social-icons a:hover {
+  color: #ffa500;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #555;
+  font-size: 0.9em;
+  color: #aaa;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-section {
+    margin-bottom: 20px;
+  }
+}

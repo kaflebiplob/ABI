@@ -61,7 +61,7 @@
 
                     <div class="form-group">
                         <label for="old_price">New Image</label>
-                        <input type="file" name="image" id="image" placeholder="" value="{{$products->image}}" required />
+                        <input type="file" name="image" id="image" placeholder="" value="{{$products->image}}"  />
                     </div>
                     <div class="form-group">
                         <label for="additional_information">Additional Information</label>

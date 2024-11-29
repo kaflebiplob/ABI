@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brands;
 use App\Models\Category;
 use App\Models\Products;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -259,5 +260,13 @@ class AdminController extends Controller
 
             return redirect()->route('product_list')->with('error', 'Error deleting products: ' . $e->getMessage());
         }
+    }
+    function userlist()
+    {
+        $users = User::all()->count();
+        $products = Products::all()->count();
+        $brands = Brands::all()->count();
+        $category = Category::all()->count();
+        return view('admin.users.userlist', compact('users', 'products', 'brands', 'category'));
     }
 }

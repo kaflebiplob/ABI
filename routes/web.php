@@ -46,4 +46,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/editbrands/{id}', [AdminController::class, 'editbrands'])->name('editbrands');
     Route::post('/editbrandssubmit/{id}', [AdminController::class, 'editbrandssubmit'])->name('editbrandssubmit');
     Route::post('/deletebrands/{id}', [AdminController::class, 'deletebrands'])->name('deletebrands');
+
+    Route::get('/userlist',[AdminController::class,'userlist'])->name('userlist');
+    
 });

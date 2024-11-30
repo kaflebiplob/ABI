@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Products</title>
+  <title>ABI-Products</title>
   <link rel="stylesheet" href="frontend/css/style.css" />
 
 </head>
@@ -25,7 +25,8 @@
           @if(Route::has('login'))
           @auth
 
-          <li><a href="">Cart</a></li>
+          <li><a href="{{route('cart')}}">Cart[{{$cartCount}}]</a></li>
+
           <li><a href="">orders</a></li>
           <li>
             <form action="{{ route('userlogout') }}" method="POST">
@@ -56,15 +57,15 @@
   <section class="products">
     <div class="shopsection">
       <div class="shopsection">
-  
+
 
         @if (isset($searchQuery) && $searchQuery)
         <div class="searched-products">
-          <h2 class="product-title" >Search Results for "{{ $searchQuery }}"</h2>
+          <h2 class="product-title">Search Results for "{{ $searchQuery }}"</h2>
           @forelse ($searchedProducts as $product)
           <div class="product-box">
             <a href="{{ route('productdetail', $product->id) }}">
-              <img  src="/products/{{ $product->image }}" alt="{{ $product->name }}" />
+              <img src="/products/{{ $product->image }}" alt="{{ $product->name }}" />
             </a>
             <h3>{{ $product->name }}</h3>
             <p>{{ $product->short_description }}</p>
@@ -99,7 +100,10 @@
 
 
               <a href="" class="buynow-product">buy now</a>
-              <a href="" class="buynow-product">Add to cart</a>
+              <form action="{{ route('addtocart', $tyre->id) }}" method="POST">
+                @csrf
+                <button type="submit" class="buynow-product">Add to cart</button>
+              </form>
             </div>
             @endforeach
 
@@ -127,6 +131,10 @@
 
             </p>
             <a href="" class="buynow-product">buy now</a>
+            <form action="{{ route('addtocart', $battery->id) }}" method="POST">
+                @csrf
+                <button type="submit" class="buynow-product">Add to cart</button>
+              </form>
           </div>
           @endforeach
 
@@ -154,7 +162,10 @@
 
               </p>
               <a href="" class="buynow-product">buy now</a>
-              <a href="" class="buynow-product">Add to cart</a>
+              <form action="{{ route('addtocart', $lubricant->id) }}" method="POST">
+                @csrf
+                <button type="submit" class="buynow-product">Add to cart</button>
+              </form>
             </div>
             @endforeach
 

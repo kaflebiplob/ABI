@@ -25,7 +25,8 @@
                     @if(Route::has('login'))
                     @auth
 
-                    <li><a href="">Cart</a></li>
+                    <li><a href="{{route('cart')}}">Cart[0]</a></li>
+
                     <li><a href="">orders</a></li>
                     <li>
                         <form action="{{ route('userlogout') }}" method="POST">

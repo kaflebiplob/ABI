@@ -22,9 +22,6 @@
           <li><a href="{{route('contactus')}}">Contact us</a></li>
           @if(Route::has('login'))
           @auth
-
-          <li><a href="">Cart</a></li>
-          <li><a href="">orders</a></li>
           <li>
             <form action="{{ route('userlogout') }}" method="POST">
               @csrf

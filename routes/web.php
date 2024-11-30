@@ -24,6 +24,9 @@ Route::post('/contactussubmit',[HomeController::class,'sendmessage'])->name('con
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/userlogout', [HomeController::class, 'userlogout'])->name('userlogout');
+    Route::get('/cart',[HomeController::class,'cart'])->name('cart');
+    Route::post('/addtocart/{id}',[HomeController::class,'addtocart'])->name('addtocart');
+    Route::get('/removefromcart/{id}',[HomeController::class,'removefromcart'])->name('removefromcart');
 });
 
 

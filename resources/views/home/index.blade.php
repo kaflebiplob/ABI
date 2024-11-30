@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Frontend panel</title>
+    <title>ABI Trade Link</title>
     <link rel="stylesheet" href="frontend/css/style.css" />
 </head>
 
@@ -24,7 +24,7 @@
                     @if(Route::has('login'))
                     @auth
 
-                    <li><a href="">Cart</a></li>
+                    <li><a href="{{route('cart')}}">Cart[{{$cartCount}}]</a></li>
                     <li><a href="">orders</a></li>
                     <li>
                         <form action="{{ route('userlogout') }}" method="POST">
@@ -123,7 +123,10 @@
 
                         </p>
                         <a href="" class="buynow-product">buy now</a>
-                        <a href="" class="buynow-product">Add to cart</a>
+                        <form action="{{ route('addtocart', $tyre->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="buynow-product">Add to cart</button>
+                        </form>
                     </div>
                     @endforeach
 
@@ -154,7 +157,10 @@
 
                         </p>
                         <a href="" class="buynow-product">buy now</a>
-                        <a href="" class="buynow-product">Add to cart</a>
+                        <form action="{{ route('addtocart', $battery->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="buynow-product">Add to cart</button>
+                        </form>
                     </div>
                     @endforeach
 
@@ -185,7 +191,10 @@
 
                         </p>
                         <a href="" class="buynow-product">buy now</a>
-                        <a href="" class="buynow-product">Add to cart</a>
+                        <form action="{{ route('addtocart', $lubricant->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="buynow-product">Add to cart</button>
+                        </form>
                     </div>
                     @endforeach
 

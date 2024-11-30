@@ -136,6 +136,13 @@ p {
     .links li {
         margin: 1rem 0;
     }
+    .slider-content {
+        flex-direction: column-reverse;
+    }
+    .desc {
+        max-width: 400px;
+        margin: 0 auto;
+    }
 }
 
 /* -------------------------------------Product---------------------------------------------- */
@@ -193,6 +200,15 @@ p {
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 2rem 0;
+}
+.product-searchbar {
+    margin-top: 2rem;
+    text-align: center;
+}
+.product-searchbar input{
+    padding: 10px;
+    border-radius: 10px;
+    border:1px solid blue;
 }
 
 /* -------------------------------------------------------Category-------------------------------------------------- */

@@ -116,6 +116,12 @@
                             {{$tyre->short_description}}
                         </p>
                         <p class="product-desc">Available Stock: {{$tyre->SKU}}</p>
+                        <p>
+                            <span class="old-price">Old Price: Rs{{$tyre->old_price}}</span> <br>
+                            <span class="new-price">New Price: Rs{{$tyre->price}}</span>
+
+
+                        </p>
                         <a href="" class="buynow-product">buy now</a>
                         <a href="" class="buynow-product">Add to cart</a>
                     </div>
@@ -141,6 +147,12 @@
                             {{$battery->short_description}}
                         </p>
                         <p class="product-desc">Total Stock: {{$battery->SKU}}</p>
+                        <p>
+                            <span class="old-price">Old Price: Rs{{$battery->old_price}}</span> <br>
+                            <span class="new-price">New Price: Rs{{$battery->price}}</span>
+
+
+                        </p>
                         <a href="" class="buynow-product">buy now</a>
                         <a href="" class="buynow-product">Add to cart</a>
                     </div>
@@ -166,6 +178,12 @@
                             {{$lubricant->short_description}}
                         </p>
                         <p class="product-desc">Total Stock: {{$lubricant->SKU}}</p>
+                        <p>
+                            <span class="old-price">Old Price: Rs{{$lubricant->old_price}}</span> <br>
+                            <span class="new-price">New Price: Rs{{$lubricant->price}}</span>
+
+
+                        </p>
                         <a href="" class="buynow-product">buy now</a>
                         <a href="" class="buynow-product">Add to cart</a>
                     </div>

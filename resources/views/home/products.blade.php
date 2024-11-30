@@ -45,12 +45,41 @@
       <button id="toggle" class="hamburger">☰</button>
     </div>
   </nav>
+
+  <div class="product-searchbar">
+    <form action="{{route('products')}}" method="GET">
+      <input type="text" name="product-search" placeholder="search product">
+      <input type="submit" name="search" class="buynow" value="search">
+    </form>
+  </div>
+
   <section class="products">
     <div class="shopsection">
       <div class="shopsection">
+  
+
+        @if (isset($searchQuery) && $searchQuery)
+        <div class="searched-products">
+          <h2 class="product-title" >Search Results for "{{ $searchQuery }}"</h2>
+          @forelse ($searchedProducts as $product)
+          <div class="product-box">
+            <a href="{{ route('productdetail', $product->id) }}">
+              <img  src="/products/{{ $product->image }}" alt="{{ $product->name }}" />
+            </a>
+            <h3>{{ $product->name }}</h3>
+            <p>{{ $product->short_description }}</p>
+            <p>Price: Rs {{ $product->price }}</p>
+          </div>
+          @empty
+          <p>No products found for "{{ $searchQuery }}".</p>
+          @endforelse
+        </div>
+        @endif
+
         <div class="tyres">
           <h2 class="product-title">4 Wheeler Tyres</h2>
           <div class="products-tyre">
+
             @foreach ($tyres as $tyre )
 
 
@@ -61,6 +90,13 @@
                 {{$tyre->short_description}}
               </p>
               <p class="product-desc">Total Stock: {{$tyre->SKU}}</p>
+              <p>
+                <span class="old-price">Old Price: Rs{{$tyre->old_price}}</span> <br>
+                <span class="new-price">New Price: Rs{{$tyre->price}}</span>
+
+
+              </p>
+
 
               <a href="" class="buynow-product">buy now</a>
               <a href="" class="buynow-product">Add to cart</a>
@@ -84,6 +120,12 @@
               {{$battery->short_description}}
             </p>
             <p class="product-desc">Total Stock: {{$battery->SKU }}</p>
+            <p>
+              <span class="old-price">Old Price: Rs{{$battery->old_price}}</span> <br>
+              <span class="new-price">New Price: Rs{{$battery->price}}</span>
+
+
+            </p>
             <a href="" class="buynow-product">buy now</a>
           </div>
           @endforeach
@@ -105,6 +147,12 @@
                 {{$lubricant->short_description}}
               </p>
               <p class="product-desc">Total Stock: {{$lubricant->SKU}}</p>
+              <p>
+                <span class="old-price">Old Price: Rs{{$lubricant->old_price}}</span> <br>
+                <span class="new-price">New Price: Rs{{$lubricant->price}}</span>
+
+
+              </p>
               <a href="" class="buynow-product">buy now</a>
               <a href="" class="buynow-product">Add to cart</a>
             </div>

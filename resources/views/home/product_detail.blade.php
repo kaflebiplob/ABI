@@ -21,7 +21,7 @@
                     <li><a href="{{route('index')}}">Home</a></li>
                     <li><a href="{{route('products')}}">Product</a></li>
                     <li><a href="">About s</a></li>
-                    <li><a href="">Contact us</a></li>
+                    <li><a href="{{route('contactus')}}">Contact us</a></li>
                     @if(Route::has('login'))
                     @auth
 
@@ -92,7 +92,7 @@
                     <li><a href="{{route('index')}}">Home</a></li>
                     <li><a href="{{route('products')}}">Products</a></li>
                     <li><a href="#categories">Categories</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="{{route('contactus')}}">Contact</a></li>
                     <li><a href="#faq">FAQ</a></li>
                 </ul>
             </div>

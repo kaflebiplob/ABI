@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Enquiry;
+
+
 
 class HomeController extends Controller
 {
@@ -35,9 +40,9 @@ class HomeController extends Controller
         $tyres = Products::where('category_id', 2)->get();
         $battries = Products::where('category_id', 3)->get();
         $lubricants = Products::where('category_id', 7)->take(3)->get();
-       
 
-        return view('home.products', compact('tyres', 'battries', 'lubricants','searchedProducts','searchQuery'));
+
+        return view('home.products', compact('tyres', 'battries', 'lubricants', 'searchedProducts', 'searchQuery'));
     }
     function productdetail($id)
     {
@@ -45,4 +50,9 @@ class HomeController extends Controller
         return view('home.product_detail', compact('products'));
     }
 
+    function contactus()
+    {
+        return view('home.contact.contact');
+    }
+   
 }

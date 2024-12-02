@@ -113,6 +113,7 @@
                         <td id="total-{{ $item->id }}">Rs{{ number_format($item->product->price * $item->quantity, 2) }}</td>
                         <td>
                             <form action="{{ route('removefromcart', $item->id) }}" method="GET">
+
                                 <button type="submit" class="btn-danger">Remove</button>
                             </form>
                         </td>
@@ -121,6 +122,11 @@
                 </tbody>
             </table>
             @endif
+            <form action="{{ route('createorder') }}" method="POST">
+                @csrf
+                <input type="hidden" id="order-total-value" name="total_amount" value="">
+                <button type="submit" class="buynow">Checkout</button>
+            </form>
         </div>
     </main>
 
@@ -173,12 +179,18 @@
         </div>
     </footer>
     <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const totalValue = document.getElementById('total-{{ $item->id }}').textContent.replace('Rs', '').replace(',', '');
+            document.getElementById('order-total-value').value = totalValue;
+        });
+    </script>
+    <script>
         function updateQuantity(itemId, change, stock) {
             const quantityInput = document.getElementById(`quantity-${itemId}`);
             const currentQuantity = parseInt(quantityInput.value);
             const newQuantity = currentQuantity + change;
 
-          
+
             if (newQuantity < 1) {
                 alert('Quantity cannot be less than 1.');
                 return;
@@ -216,7 +228,7 @@
                 });
         }
     </script>
-    <script src="frontend/js/index.js"></script>
+    <script src="/frontend/js/index.js"></script>
 
 
 </body>

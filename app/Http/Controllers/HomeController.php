@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Enquiry;
 use App\Models\Cart;
+use App\Models\Order;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -23,12 +25,12 @@ class HomeController extends Controller
         $tyres = Products::where('category_id', 2)->take(3)->get();
         $battries = Products::where('category_id', 3)->take(3)->get();
         $lubricants = Products::where('category_id', 7)->take(3)->get();
-        $cartCount= Cart::all()->count();
-        return view('home.index', compact('tyres', 'battries', 'lubricants','cartCount'));
+        $cartCount = Cart::where('user_id', Auth::id())->count();
+        return view('home.index', compact('tyres', 'battries', 'lubricants', 'cartCount'));
     }
     function products(Request $request)
     {
-        $cartCount= Cart::all()->count();
+        $cartCount = Cart::where('user_id', Auth::id())->count();
 
         $searchQuery = $request->input('product-search');
 
@@ -44,14 +46,14 @@ class HomeController extends Controller
         $lubricants = Products::where('category_id', 7)->take(3)->get();
 
 
-        return view('home.products', compact('tyres', 'battries', 'lubricants', 'searchedProducts', 'searchQuery','cartCount'));
+        return view('home.products', compact('tyres', 'battries', 'lubricants', 'searchedProducts', 'searchQuery', 'cartCount'));
     }
     function productdetail($id)
     {
         $products = Products::find($id);
-        $cartCount= Cart::all()->count();
+        $cartCount = Cart::where('user_id', Auth::id())->count();
 
-        return view('home.product_detail', compact('products','cartCount'));
+        return view('home.product_detail', compact('products', 'cartCount'));
     }
 
     function contactus()
@@ -63,7 +65,8 @@ class HomeController extends Controller
     {
         $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
         $cartCount = $cartItems->sum('quantity');
-        return view('home.carts.cart', compact('cartItems','cartCount'));
+        
+        return view('home.carts.cart', compact('cartItems', 'cartCount'));
     }
     function addtocart(Request $request, $id)
     {
@@ -95,5 +98,33 @@ class HomeController extends Controller
         $cartItem = Cart::find($id);
         $cartItem->delete();
         return redirect()->route('cart');
+    }
+    function myorders(){
+        $cartCount = Cart::where('user_id', Auth::id())->count();
+        $orders = Order::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+    
+        return view('home.order.myorders', compact('cartCount', 'orders'));
+    }
+    function orders($token)
+    {
+        $cartCount = Cart::where('user_id', Auth::id())->count();
+        $order = Order::where('order_token', $token)->firstOrFail();
+        if (Auth::id() !== $order->user_id && Auth::user()?->usertype !== 'admin') {
+            abort(403, 'Unauthorized action');
+        }
+
+        return view('home.order.order', compact('cartCount', 'order'));
+    }
+    function createorder(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:0'
+        ]);
+        $order =  Order::create([
+            'amount' => $request->amount,
+            'user_id' => Auth::id(),
+
+        ]);
+        return redirect()->route('orders', $order->order_token)->with('success', 'Order Placed Succesfully');
     }
 }

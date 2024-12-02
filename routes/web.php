@@ -18,15 +18,18 @@ Route::group(['middleware' => 'guest'], function () {
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/shop', [HomeController::class, 'products'])->name('products');
 Route::get('/productdetail/{id}', [HomeController::class, 'productdetail'])->name('productdetail');
-Route::get('/contactus',[HomeController::class,'contactus'])->name('contactus');
-Route::post('/contactussubmit',[HomeController::class,'sendmessage'])->name('contactussubmit');
+Route::get('/contactus', [HomeController::class, 'contactus'])->name('contactus');
+Route::post('/contactussubmit', [HomeController::class, 'sendmessage'])->name('contactussubmit');
 
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/userlogout', [HomeController::class, 'userlogout'])->name('userlogout');
-    Route::get('/cart',[HomeController::class,'cart'])->name('cart');
-    Route::post('/addtocart/{id}',[HomeController::class,'addtocart'])->name('addtocart');
-    Route::get('/removefromcart/{id}',[HomeController::class,'removefromcart'])->name('removefromcart');
+    Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
+    Route::post('/addtocart/{id}', [HomeController::class, 'addtocart'])->name('addtocart');
+    Route::get('/removefromcart/{id}', [HomeController::class, 'removefromcart'])->name('removefromcart');
+    Route::get('/myorders', [HomeController::class, 'myorders'])->name('myorders');
+    Route::get('/orders/{token}', [HomeController::class, 'orders'])->name('orders');
+    Route::post('/createorder', [HomeController::class, 'createorder'])->name('createorder');
 });
 
 

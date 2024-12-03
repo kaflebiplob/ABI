@@ -26,7 +26,8 @@
                     @auth
 
                     <li><a href="{{route('cart')}}">Cart[{{$cartCount}}]</a></li>
-                    <li><a href="">orders</a></li>
+                    <li><a href="{{route('myorders')}}">My orders</a></li>
+
                     <li>
                         <form action="{{ route('userlogout') }}" method="POST">
                             @csrf
@@ -44,33 +45,51 @@
             </div>
             <button id="toggle" class="hamburger">☰</button>
         </div>
+
     </nav>
-    @if ($orders->isEmpty())
-    <p>You have no orders yet.</p>
-    @else
-    <table>
-        <thead>
+    <main>
+        @if (session('success'))
+        <p style="color: green; text-align:center">{{ session('success') }}</p>
+        @endif
+        @if (session('error'))
+        <p style="color: red; text-align:center">{{ session('error') }}</p>
+        @endif
+        <div class="container cart-container">
+            <h2>Your Cart</h2>
+            @if($orders->isEmpty())
+            <p class="empty-cart">There is no order.</p>
+            @else
+            <table class="table cart-table">
+                <thead>
+                    <tr>
+                        <th>Order token</th>
+                        <th>Amount</th>
+                        <th>status</th>
+                        <th>Image</th>
+                        <th>Quantity</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach ($orders as $order)
             <tr>
-                <th>Order Token</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Details</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($orders as $order) {{-- Loop through the collection --}}
-            <tr>
-                <td>{{ $order->order_token }}</td> {{-- Access property on a single order --}}
-                <td>${{ $order->amount }}</td>
+                <td>{{ $order->order_token }}</td>
+                <td>Rs{{ $order->amount }}</td>
                 <td>{{ ucfirst($order->status) }}</td>
+                <td>{{$order->}}</td>
+                <td></td>
                 <td>
                     <a href="{{ route('orders', $order->order_token) }}">View Details</a>
                 </td>
             </tr>
             @endforeach
-        </tbody>
-    </table>
-    @endif
+                  
+                </tbody>
+            </table>
+            
+            
+            @endif
+        </div>
     </main>
     <footer class="footer">
         <div class="footer-container">

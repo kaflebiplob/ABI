@@ -26,8 +26,8 @@
                     @auth
 
                     <li><a href="{{route('cart')}}">Cart[0]</a></li>
+                    <li><a href="{{route('myorders')}}">My orders</a></li>
 
-                    <li><a href="">orders</a></li>
                     <li>
                         <form action="{{ route('userlogout') }}" method="POST">
                             @csrf

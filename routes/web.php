@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
     Route::post('/addtocart/{id}', [HomeController::class, 'addtocart'])->name('addtocart');
     Route::get('/removefromcart/{id}', [HomeController::class, 'removefromcart'])->name('removefromcart');
+    Route::post('/updateCart',[HomeController::class,'updateCart'])->name('updateCart');
     Route::get('/myorders', [HomeController::class, 'myorders'])->name('myorders');
     Route::get('/orders/{token}', [HomeController::class, 'orders'])->name('orders');
     Route::post('/createorder', [HomeController::class, 'createorder'])->name('createorder');

@@ -26,7 +26,8 @@
                     @auth
 
                     <li><a href="{{route('cart')}}">Cart[{{$cartCount}}]</a></li>
-                    <li><a href="">orders</a></li>
+                    <li><a href="{{route('myorders')}}">My orders</a></li>
+
                     <li>
                         <form action="{{ route('userlogout') }}" method="POST">
                             @csrf
@@ -83,6 +84,12 @@
         </div>
     </main> -->
     <main>
+        @if (session('success'))
+        <p style="color: green; text-align:center">{{ session('success') }}</p>
+        @endif
+        @if (session('error'))
+        <p style="color: red; text-align:center">{{ session('error') }}</p>
+        @endif
         <div class="container cart-container">
             <h2>Your Cart</h2>
             @if($cartItems->isEmpty())
@@ -103,17 +110,30 @@
                     @foreach($cartItems as $item)
                     <tr>
                         <td>{{ $item->product->name }}</td>
-                        <td><img src="/products/{{$item->product->image}}" alt="{{ $item->product->name }}" class="product-image"></td>
                         <td>
-                            <button class="quantity-btn" onclick="updateQuantity({{ $item->id }}, -1, {{ $item->product->SKU }})">-</button>
-                            <input id="quantity-{{ $item->id }}" type="number" value="{{ $item->quantity }}" readonly class="quantity-input">
-                            <button class="quantity-btn" onclick="updateQuantity({{ $item->id }}, 1, {{ $item->product->SKU }})">+</button>
+                            <img src="/products/{{ $item->product->image }}"
+                                alt="{{ $item->product->name }}"
+                                class="product-image">
+                        </td>
+                        <td>
+                            <form action="{{ route('updateCart') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <input type="hidden" name="cart_id" value="{{ $item->id }}">
+                                <input type="hidden" name="action" value="decrement">
+                                <button type="submit" class="quantity-btn">-</button>
+                            </form>
+                            <input type="number" value="{{ $item->quantity }}" readonly class="quantity-input">
+                            <form action="{{ route('updateCart') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <input type="hidden" name="cart_id" value="{{ $item->id }}">
+                                <input type="hidden" name="action" value="increment">
+                                <button type="submit" class="quantity-btn">+</button>
+                            </form>
                         </td>
                         <td>Rs{{ number_format($item->product->price, 2) }}</td>
-                        <td id="total-{{ $item->id }}">Rs{{ number_format($item->product->price * $item->quantity, 2) }}</td>
+                        <td>Rs{{ number_format($item->product->price * $item->quantity, 2) }}</td>
                         <td>
                             <form action="{{ route('removefromcart', $item->id) }}" method="GET">
-
                                 <button type="submit" class="btn-danger">Remove</button>
                             </form>
                         </td>
@@ -121,12 +141,15 @@
                     @endforeach
                 </tbody>
             </table>
-            @endif
+            <div>
+                <h4>Total Amount: Rs{{ number_format($cartItems->sum(fn($item) => $item->product->price * $item->quantity), 2) }}</h4>
+            </div>
             <form action="{{ route('createorder') }}" method="POST">
                 @csrf
-                <input type="hidden" id="order-total-value" name="total_amount" value="">
+                <input type="hidden" name="amount" value="{{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}">
                 <button type="submit" class="buynow">Checkout</button>
             </form>
+            @endif
         </div>
     </main>
 
@@ -178,56 +201,8 @@
             <p>&copy; 2024 ABI Trade link pvt ltd. All Rights Reserved.</p>
         </div>
     </footer>
-    <script>
-        document.querySelector('form').addEventListener('submit', function(e) {
-            const totalValue = document.getElementById('total-{{ $item->id }}').textContent.replace('Rs', '').replace(',', '');
-            document.getElementById('order-total-value').value = totalValue;
-        });
-    </script>
-    <script>
-        function updateQuantity(itemId, change, stock) {
-            const quantityInput = document.getElementById(`quantity-${itemId}`);
-            const currentQuantity = parseInt(quantityInput.value);
-            const newQuantity = currentQuantity + change;
 
 
-            if (newQuantity < 1) {
-                alert('Quantity cannot be less than 1.');
-                return;
-            }
-            if (newQuantity > stock) {
-                alert('Quantity exceeds available stock.');
-                return;
-            }
-            quantityInput.value = newQuantity;
-            const priceElement = document.querySelector(`tr td:nth-child(4)`).textContent.replace('Rs', '').replace(',', '');
-            const totalElement = document.getElementById(`total-${itemId}`);
-            const price = parseFloat(priceElement);
-            totalElement.textContent = `Rs${(price * newQuantity).toLocaleString()}.00`;
-
-            fetch(`/cart/update/${itemId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        quantity: newQuantity
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log('Cart updated successfully.');
-                    } else {
-                        alert('Failed to update the cart.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error updating the cart:', error);
-                });
-        }
-    </script>
     <script src="/frontend/js/index.js"></script>
 
 

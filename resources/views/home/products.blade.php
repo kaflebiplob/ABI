@@ -27,7 +27,8 @@
 
           <li><a href="{{route('cart')}}">Cart[{{$cartCount}}]</a></li>
 
-          <li><a href="">orders</a></li>
+          <li><a href="{{route('myorders')}}">My orders</a></li>
+
           <li>
             <form action="{{ route('userlogout') }}" method="POST">
               @csrf
@@ -132,9 +133,9 @@
             </p>
             <a href="" class="buynow-product">buy now</a>
             <form action="{{ route('addtocart', $battery->id) }}" method="POST">
-                @csrf
-                <button type="submit" class="buynow-product">Add to cart</button>
-              </form>
+              @csrf
+              <button type="submit" class="buynow-product">Add to cart</button>
+            </form>
           </div>
           @endforeach
 

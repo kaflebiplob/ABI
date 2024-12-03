@@ -15,4 +15,6 @@ class Order extends Model
             $order->order_token = Str::random(4);
         });
     }
+    
+   
 }   

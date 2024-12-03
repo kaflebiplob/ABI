@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\Enquiry;
 use App\Models\Cart;
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class HomeController extends Controller
@@ -65,7 +66,7 @@ class HomeController extends Controller
     {
         $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
         $cartCount = $cartItems->sum('quantity');
-        
+
         return view('home.carts.cart', compact('cartItems', 'cartCount'));
     }
     function addtocart(Request $request, $id)
@@ -93,16 +94,46 @@ class HomeController extends Controller
         }
         return redirect()->route('cart')->with('success', 'Product added to cart successfully.');
     }
+
+    public function updateCart(Request $request)
+    {
+        $cartItem = Cart::find($request->cart_id);
+
+        if (!$cartItem) {
+            return redirect()->route('cart')->with('error', 'Cart item not found.');
+        }
+
+        if ($request->action === 'increment') {
+            if ($cartItem->quantity < $cartItem->product->SKU) {
+                $cartItem->quantity += 1;
+                $cartItem->save();
+            } else {
+                return redirect()->route('cart')->with('error', 'Stock limit exceeded.');
+            }
+        }
+
+        if ($request->action === 'decrement') {
+            if ($cartItem->quantity > 1) {
+                $cartItem->quantity -= 1;
+                $cartItem->save();
+            } else {
+                return redirect()->route('cart')->with('error', 'Quantity cannot be less than 1.');
+            }
+        }
+
+        return redirect()->route('cart')->with('success', 'Cart updated successfully.');
+    }
     function removefromcart($id)
     {
         $cartItem = Cart::find($id);
         $cartItem->delete();
         return redirect()->route('cart');
     }
-    function myorders(){
+    function myorders()
+    {
         $cartCount = Cart::where('user_id', Auth::id())->count();
         $orders = Order::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
-    
+
         return view('home.order.myorders', compact('cartCount', 'orders'));
     }
     function orders($token)
@@ -120,11 +151,48 @@ class HomeController extends Controller
         $request->validate([
             'amount' => 'required|numeric|min:0'
         ]);
-        $order =  Order::create([
-            'amount' => $request->amount,
-            'user_id' => Auth::id(),
+        DB::beginTransaction();
+        try {
+            $cartItems = Cart::where('user_id', Auth::id())->get();
+            if ($cartItems->isEmpty()) {
+                return redirect()->route('cart')->with('error', 'Your cartis empty');
+            }
+            $order = Order::create([
+                'amount' => $request->amount,
+                'user_id' => Auth::id(),
+            ]);
+            foreach ($cartItems as $cartItem) {
+                $product = $cartItem->product;
+                if (!$product) {
+                    return redirect()->route('cart')->with('error', 'Product not found');
+                }
+                if ($product->SKU < 0) {
+                    DB::rollBack();
+                    return redirect()->route('cart')->with('error', "Unexpected stock calculation error.");
+                }
+                if ($product->SKU < $cartItem->quantity) {
+                    DB::rollBack();
+                    return redirect()->route('cart')->with('error', "Insufficient stock for {$product->name}");
+                }
+                $product->SKU -= $cartItem->quantity;
+                $product->save();
+            }
+            Cart::where('user_id', Auth::id())->delete();
 
-        ]);
-        return redirect()->route('orders', $order->order_token)->with('success', 'Order Placed Succesfully');
+            DB::commit();
+            return redirect()->route('orders', $order->order_token)->with('success', 'Order placed successfully!');
+        } catch (\Exception $e) {
+            DB::rollBack(); // Revert changes on error
+            return redirect()->route('cart')->with('error', 'Failed to place the order. Please try again.');
+        }
     }
 }
+//         $order =  Order::create([
+//             'amount' => $request->amount,
+//             'user_id' => Auth::id(),
+
+//         ]);
+//         Cart::where('user_id', Auth::id())->delete();
+//         return redirect()->route('orders', $order->order_token)->with('success', 'Order Placed Succesfully');
+//     }
+// }

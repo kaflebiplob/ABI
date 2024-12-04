@@ -11,6 +11,7 @@
         <li><a href="{{route('category')}}">Category</a></li>
         <li><a href="{{route('product_list')}}">Products</a></li>
         <li><a href="{{route('brands')}}">Brands</a></li>
+        <li><a href="{{route('orders')}}">orders</a></li>
         <li><a href="{{route('userlist')}}">Lists</a></li>
       </ul>
     </nav>

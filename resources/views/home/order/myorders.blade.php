@@ -1,3 +1,4 @@
+li
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,23 +72,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($orders as $order)
-            <tr>
-                <td>{{ $order->order_token }}</td>
-                <td>Rs{{ $order->amount }}</td>
-                <td>{{ ucfirst($order->status) }}</td>
-                <td>{{$order->}}</td>
-                <td></td>
-                <td>
-                    <a href="{{ route('orders', $order->order_token) }}">View Details</a>
-                </td>
-            </tr>
-            @endforeach
-                  
+                    @foreach ($orders as $order)
+                    <tr>
+                        <td>{{ $order->order_token }}</td>
+                        <td>Rs{{ $order->amount }}</td>
+                        <td>{{ ucfirst($order->status) }}</td>
+                        <td>
+                            @foreach ($order->orderItems as $orderItem)
+                            <li style="list-style: none; align-content:center">
+
+                                <img src="{{ asset('products/' . $orderItem->product->image) }}" alt="{{ $orderItem->product->name }}" style="width: 50px; height: 50px;">
+                            </li>
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($order->orderItems as $orderItem)
+                            <li style="list-style: none; text-align:center">
+
+                                {{ $orderItem->quantity }}
+                            </li>
+                            @endforeach
+                        </td>
+                        <td>
+                            <a href="{{ route('orders', $order->order_token) }}">View Details</a>
+                        </td>
+                    </tr>
+                    @endforeach
+
                 </tbody>
             </table>
-            
-            
+
+
             @endif
         </div>
     </main>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brands;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Products;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -267,6 +268,37 @@ class AdminController extends Controller
         $products = Products::all()->count();
         $brands = Brands::all()->count();
         $category = Category::all()->count();
-        return view('admin.users.userlist', compact('users', 'products', 'brands', 'category'));
+        $orders = Order::all()->count();
+        $delivered = Order::where('status','delivered')->count();
+        return view('admin.users.userlist', compact('users', 'products', 'brands', 'category','orders','delivered'));
+    }
+    function orders()
+    {
+        $orders = Order::all();
+        return view('admin.order.order', compact('orders'));
+    }
+    function deleteorder($id)
+    {
+        $orders = Order::find($id);
+        try {
+            $orders->delete();
+            return redirect()->route('orders')->with('success', 'Order deleted succesfully');
+        } catch (\Exception $e) {
+            return redirect()->route('orders')->with('error', 'Error deleting order: ' . $e->getMessage());
+        }
+    }
+    function delivered($id){
+        $orders = Order::find($id);
+        $orders->status = 'Delivered';
+        $orders->save();
+        return redirect()->route('orders')->with('success','Product Delivered succesfully');
+
+    }
+    function ontheway($id){
+        $orders = Order::find($id);
+        $orders->status = 'on the way';
+        $orders->save();
+        return redirect()->route('orders')->with('success','Product on the way');
+
     }
 }

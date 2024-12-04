@@ -15,7 +15,10 @@
         <h2>No of users:{{$users}}</h2>
       </div>
       <div class="orderlist">
-      <h2>   No of orders: </h2>  
+      <h2>   No of orders:{{$orders}} </h2>  
+      </div>
+      <div class="orderlist">
+      <h2>   No of delivered orders:{{$delivered}} </h2>  
       </div>
       <div class="productlist">
         <h2>No of Product:{{$products}}</h2>

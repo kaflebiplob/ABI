@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Enquiry;
+use Illuminate\Support\Facades\Log;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\OrderItems;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -133,6 +134,7 @@ class HomeController extends Controller
     {
         $cartCount = Cart::where('user_id', Auth::id())->count();
         $orders = Order::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        $orders = Order::with('orderItems.product')->where('user_id', Auth::id())->get();
 
         return view('home.order.myorders', compact('cartCount', 'orders'));
     }
@@ -153,14 +155,19 @@ class HomeController extends Controller
         ]);
         DB::beginTransaction();
         try {
+            Log::info('Starting order creation', ['user_id' => Auth::id()]);
             $cartItems = Cart::where('user_id', Auth::id())->get();
             if ($cartItems->isEmpty()) {
+                Log::warning('Cart is empty', ['user_id' => Auth::id()]);
                 return redirect()->route('cart')->with('error', 'Your cartis empty');
             }
             $order = Order::create([
                 'amount' => $request->amount,
                 'user_id' => Auth::id(),
+
             ]);
+
+
             foreach ($cartItems as $cartItem) {
                 $product = $cartItem->product;
                 if (!$product) {
@@ -176,23 +183,21 @@ class HomeController extends Controller
                 }
                 $product->SKU -= $cartItem->quantity;
                 $product->save();
+                $order->orderItems()->create([
+                    'product_id' => $product->id,
+                    'quantity' => $cartItem->quantity,
+                    'price' => $cartItem->price ?? $product->price,
+                    'order_id' => $order->id,
+                ]);
             }
             Cart::where('user_id', Auth::id())->delete();
 
             DB::commit();
-            return redirect()->route('orders', $order->order_token)->with('success', 'Order placed successfully!');
+            return redirect()->route('myorders', $order->order_token)->with('success', 'Order placed successfully!');
         } catch (\Exception $e) {
-            DB::rollBack(); // Revert changes on error
+            Log::error('Order creation failed', ['error' => $e->getMessage()]);
+            DB::rollBack();
             return redirect()->route('cart')->with('error', 'Failed to place the order. Please try again.');
         }
     }
 }
-//         $order =  Order::create([
-//             'amount' => $request->amount,
-//             'user_id' => Auth::id(),
-
-//         ]);
-//         Cart::where('user_id', Auth::id())->delete();
-//         return redirect()->route('orders', $order->order_token)->with('success', 'Order Placed Succesfully');
-//     }
-// }

@@ -15,6 +15,12 @@ class Order extends Model
             $order->order_token = Str::random(4);
         });
     }
-    
-   
-}   
+    function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItems::class);
+    }
+}

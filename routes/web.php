@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/removefromcart/{id}', [HomeController::class, 'removefromcart'])->name('removefromcart');
     Route::post('/updateCart',[HomeController::class,'updateCart'])->name('updateCart');
     Route::get('/myorders', [HomeController::class, 'myorders'])->name('myorders');
-    Route::get('/orders/{token}', [HomeController::class, 'orders'])->name('orders');
+    Route::get('/myorders/{token}', [HomeController::class, 'orders'])->name('orders');
     Route::post('/createorder', [HomeController::class, 'createorder'])->name('createorder');
 });
 
@@ -64,6 +64,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/editbrands/{id}', [AdminController::class, 'editbrands'])->name('editbrands');
     Route::post('/editbrandssubmit/{id}', [AdminController::class, 'editbrandssubmit'])->name('editbrandssubmit');
     Route::post('/deletebrands/{id}', [AdminController::class, 'deletebrands'])->name('deletebrands');
+
+
+
+    Route::get('/orders',[AdminController::class,'orders'])->name('orders');
+    Route::post('/deleteorder/{id}',[AdminController::class,'deleteorder'])->name('deleteorder');
+    Route::get('/delivered/{id}',[AdminController::class,'delivered'])->name('delivered');
+    Route::get('/ontheway/{id}',[AdminController::class,'ontheway'])->name('ontheway');
 
     Route::get('/userlist', [AdminController::class, 'userlist'])->name('userlist');
 });

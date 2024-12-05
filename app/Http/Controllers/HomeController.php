@@ -24,7 +24,7 @@ class HomeController extends Controller
 
     function index()
     {
-        $tyres = Products::where('category_id', 2)->take(3)->get();
+        $tyres = Products::where('category_id', 2)->orderBy('created_at', 'desc')->take(3)->get();
         $battries = Products::where('category_id', 3)->take(3)->get();
         $lubricants = Products::where('category_id', 7)->take(3)->get();
         $cartCount = Cart::where('user_id', Auth::id())->count();

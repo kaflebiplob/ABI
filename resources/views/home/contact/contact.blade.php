@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABI - Contact</title>
   <link rel="stylesheet" href="frontend/css/style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
 
 </head>
 <body>
@@ -12,6 +14,7 @@
     <div class="navbar">
       <div class="logo">
         <img src="frontend/img/logo.webp" alt="logo" />
+
         <!-- <span>ABI</span> -->
       </div>
       <div class="page-links">
@@ -102,10 +105,10 @@
       <div class="footer-section social">
         <h3>Follow Us</h3>
         <div class="social-icons">
-          <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100047124621709"><i class="fa fa-facebook"></i></a>
           <a href="#"><i class="fa fa-twitter"></i></a>
           <a href="#"><i class="fa fa-instagram"></i></a>
-          <a href="#"><i class="fa fa-linkedin"></i></a>
+          <a href="https://www.linkedin.com/in/biplob-kafle-56b16925a/"><i class="fa fa-linkedin"></i></a>
         </div>
       </div>
     </div>

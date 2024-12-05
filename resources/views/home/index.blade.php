@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ABI Trade Link</title>
     <link rel="stylesheet" href="frontend/css/style.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -69,9 +70,9 @@
 
                 <div class="slider-content">
                     <div class="desc">
-                        <h1>2/75R15 tyres</h1>
+                        <h1>235/75R15 tyres</h1>
                         <p class="desc-def">
-                            The 215/75R15 tire is 215 mm wide, has a sidewall height that's
+                            The 235/75R15 tire is 215 mm wide, has a sidewall height that's
                             75% of its width, fits 15-inch rims, and is a radial type. It's
                             commonly used on SUVs and light trucks for good comfort and
                             stability.
@@ -79,22 +80,19 @@
                         <a href="" class="buynow">buy now</a>
                     </div>
                     <div class="desc-image">
-                        <a href=""><img src="frontend/img/tyre.png" alt="215/75R15 ceat tyre" /></a>
+                        <a href=""><img src="/products/1733405035.jpg" alt="235/75R15 ceat tyre" height="200px" /></a>
                     </div>
                 </div>
                 <div class="slider-content">
                     <div class="desc">
-                        <h1>2/75R15 tyres</h1>
+                        <h1>155/70R13 tyres</h1>
                         <p class="desc-def">
-                            The 215/75R15 tire is 215 mm wide, has a sidewall height that's
-                            75% of its width, fits 15-inch rims, and is a radial type. It's
-                            commonly used on SUVs and light trucks for good comfort and
-                            stability.
+                            The CEAT Milaze X3 155/70R13 75T is a tubeless radial tyre designed for durability and longevity, often referred to as the "1 lakh km tyre" due to its potential lifespan of up to 100,000 kilometers under standard test conditions.
                         </p>
                         <a href="" class="buynow">buy now</a>
                     </div>
                     <div class="desc-image">
-                        <a href=""><img src="frontend/img/tyre.png" alt="215/75R15 ceat tyre" /></a>
+                        <a href=""><img src="/products/1733404787.jpg" alt="155/70R13 ceat tyre" /></a>
                     </div>
                 </div>
             </div>
@@ -225,9 +223,7 @@
                             <h4>lubricants</h4>
                         </div>
                     </div>
-                    <div class="category-logo">
-                        <img src="/img/logo.webp" alt="" />
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -248,7 +244,6 @@
                 <ul>
                     <li><a href="{{route('index')}}">Home</a></li>
                     <li><a href="{{route('products')}}">Products</a></li>
-                    <li><a href="#categories">Categories</a></li>
                     <li><a href="{{route('contactus')}}">Contact</a></li>
                     <li><a href="#faq">FAQ</a></li>
                 </ul>
@@ -267,10 +262,11 @@
             <div class="footer-section social">
                 <h3>Follow Us</h3>
                 <div class="social-icons">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100047124621709"><i class="fa fa-facebook"></i></a>
+                    
+                    <a href=""><i class="fa fa-twitter"></i></a>
                     <a href="#"><i class="fa fa-instagram"></i></a>
-                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                    <a href="https://www.linkedin.com/in/biplob-kafle-56b16925a/"><i class="fa fa-linkedin"></i></a>
                 </div>
             </div>
         </div>

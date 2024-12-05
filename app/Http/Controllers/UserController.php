@@ -40,23 +40,25 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|max:15',
-            'phone' => 'required|digits:10',
+            'phone' => 'required|digits:10|unique:users,phone',
             'address' => 'required',
 
         ]);
-        $users = new User();
-        $users->name = $request->name;
-        $users->email = $request->email;
-        $users->password = Hash::make($request->password);
-        $users->phone = $request->phone;
-        $users->address = $request->address;
-        $users->save();
-        if ($users->usertype === 'admin') {
-            return redirect()->route('admin');
-        } else {
-            return redirect()->route('login');
+        try {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->phone = $request->phone;
+            $user->address = $request->address;
+            $user->usertype = $request->input('usertype', 'user'); 
+            $user->save();
+
+            return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
+        } catch (\Exception $e) {
+            return redirect()->route('register')->with('error', 'Failed to register. Please try again.');
         }
     }
 }

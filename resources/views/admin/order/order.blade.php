@@ -40,14 +40,12 @@
                         <td>{{$order->amount}}</td>
                         <td>{{$order->status}}</td>
                         <td>
-
-                            <button type="submit" class="edit-button">Pending</button>
                             <a href="{{route('delivered',$order->id)}}"><button type="submit" class="addnewheader" >Delivered</button></a>
                             <a href="{{route('ontheway',$order->id)}}"><button type="submit" class="addnewheader" >On the way</button></a>
                             <form action="{{ route('deleteorder', $order->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('POST')
-                                <button type="submit"  class="delete-button" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
+                                <button type="submit"  class="delete-button" onclick="return confirm('Are you sure you want to cancel this product?')">Cancel</button>
                             </form>
 
                         </td>

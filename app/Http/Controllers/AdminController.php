@@ -269,8 +269,8 @@ class AdminController extends Controller
         $brands = Brands::all()->count();
         $category = Category::all()->count();
         $orders = Order::all()->count();
-        $delivered = Order::where('status','delivered')->count();
-        return view('admin.users.userlist', compact('users', 'products', 'brands', 'category','orders','delivered'));
+        $delivered = Order::where('status', 'delivered')->count();
+        return view('admin.users.userlist', compact('users', 'products', 'brands', 'category', 'orders', 'delivered'));
     }
     function orders()
     {
@@ -279,26 +279,36 @@ class AdminController extends Controller
     }
     function deleteorder($id)
     {
-        $orders = Order::find($id);
+        $order = Order::find($id);
         try {
-            $orders->delete();
-            return redirect()->route('orders')->with('success', 'Order deleted succesfully');
+            if ($order->status !== "Cancelled") {
+                foreach ($order->orderItems as $item) {
+                    $product = $item->product;
+                    $product->SKU += $item->quantity;
+                    $product->save();
+                }
+
+                $order->status = "Cancelled";
+                $order->save();
+            }
+
+            return redirect()->route('orders')->with('success', 'Order marked as cancelled successfully');
         } catch (\Exception $e) {
             return redirect()->route('orders')->with('error', 'Error deleting order: ' . $e->getMessage());
         }
     }
-    function delivered($id){
+    function delivered($id)
+    {
         $orders = Order::find($id);
         $orders->status = 'Delivered';
         $orders->save();
-        return redirect()->route('orders')->with('success','Product Delivered succesfully');
-
+        return redirect()->route('orders')->with('success', 'Product Delivered succesfully');
     }
-    function ontheway($id){
+    function ontheway($id)
+    {
         $orders = Order::find($id);
         $orders->status = 'on the way';
         $orders->save();
-        return redirect()->route('orders')->with('success','Product on the way');
-
+        return redirect()->route('orders')->with('success', 'Product on the way');
     }
 }

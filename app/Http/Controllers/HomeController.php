@@ -155,10 +155,8 @@ class HomeController extends Controller
         ]);
         DB::beginTransaction();
         try {
-            Log::info('Starting order creation', ['user_id' => Auth::id()]);
             $cartItems = Cart::where('user_id', Auth::id())->get();
             if ($cartItems->isEmpty()) {
-                Log::warning('Cart is empty', ['user_id' => Auth::id()]);
                 return redirect()->route('cart')->with('error', 'Your cartis empty');
             }
             $order = Order::create([
@@ -195,7 +193,6 @@ class HomeController extends Controller
             DB::commit();
             return redirect()->route('myorders', $order->order_token)->with('success', 'Order placed successfully!');
         } catch (\Exception $e) {
-            Log::error('Order creation failed', ['error' => $e->getMessage()]);
             DB::rollBack();
             return redirect()->route('cart')->with('error', 'Failed to place the order. Please try again.');
         }

@@ -1,4 +1,3 @@
-li
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,9 +64,10 @@ li
                     <tr>
                         <th>Order token</th>
                         <th>Amount</th>
-                        <th>status</th>
+                        <th>Name</th>
                         <th>Image</th>
                         <th>Quantity</th>
+                        <th>status</th>
                         <th>Details</th>
                     </tr>
                 </thead>
@@ -76,7 +76,21 @@ li
                     <tr>
                         <td>{{ $order->order_token }}</td>
                         <td>Rs{{ $order->amount }}</td>
-                        <td>{{ ucfirst($order->status) }}</td>
+                        <td>
+                            @if ($order->orderItems)
+                            @foreach ($order->orderItems as $orderItem)
+                            <li style="list-style: none; align-content:center">
+
+                                {{ $orderItem->product->name }}
+                            </li>
+                            @endforeach
+                            @else
+                            No items
+                            @endif
+
+
+                        </td>
+                        
                         <td>
                             @foreach ($order->orderItems as $orderItem)
                             <li style="list-style: none; align-content:center">
@@ -93,8 +107,9 @@ li
                             </li>
                             @endforeach
                         </td>
+                        <td>{{ ucfirst($order->status) }}</td>
                         <td>
-                            <a href="{{ route('orders', $order->order_token) }}">View Details</a>
+                            <a href="{{ route('orders_token', $order->order_token) }}">View Details</a>
                         </td>
                     </tr>
                     @endforeach

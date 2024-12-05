@@ -1,4 +1,5 @@
 Laravel 11 Project
+
 This project is a web application built with Laravel 11, featuring a responsive design for seamless use across devices. The application is powered by MySQL for database management and includes an intuitive admin panel for efficient backend operations.
 
 Features
